@@ -133,8 +133,8 @@ for speaker_name in statements:
 
 #vectorizer = TfidfVectorizer(max_df=.95, min_df=2, stop_words=stop_words)
 vectorizer = CountVectorizer(max_df=.95, min_df=2, stop_words=stop_words)
-tfidf = vectorizer.fit_transform(docs)
-top_words_for_giin = [top_words(tfidf[i].toarray().squeeze(), vectorizer.get_feature_names(), topn=200) for i in range(tfidf.shape[0])]
+counts = vectorizer.fit_transform(docs)
+top_words_for_giin = [top_words(counts[i].toarray().squeeze(), vectorizer.get_feature_names(), topn=200) for i in range(counts.shape[0])]
 
 result = {}
 for index, name in enumerate(doc_names):
@@ -142,7 +142,7 @@ for index, name in enumerate(doc_names):
             'name': name,
             'party': find_party(name),
             'count': speaker_freq[name],
-            'tfidf': top_words_for_giin[index],
+            'counts': top_words_for_giin[index],
     }
 
 
